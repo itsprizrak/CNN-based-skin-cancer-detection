@@ -1,0 +1,31 @@
+import numpy as np
+from PIL import Image
+np.random.seed(42)
+import keras,subprocess
+import matplotlib.pyplot as plt
+
+model = keras.models.load_model('E:\Final_year_project\Final_project\Code\skin_cancer.h5')
+        
+image_test = Image.open(r"E:test.jpeg")
+    
+image_test = image_test.resize((32,32))
+image_test = np.asarray(image_test)
+image_test = image_test/255
+z = image_test
+    
+img = plt.imshow(image_test)
+    
+predictions = model.predict(np.array([z]))
+print(predictions)
+    
+y_pred_classes = np.argmax(predictions, axis = 1) 
+print(y_pred_classes)
+    
+    #[0]akiec - actinic keratosis lesions 
+    #[1]bcc - basal cell carcinoma
+    #[2]bkl - benign keratosis
+    #[3]df - dermatofibroma
+    #[4]mel - melaloma
+    #[5]nv - nevus
+    #[6]vasc - vascular lesions
+
